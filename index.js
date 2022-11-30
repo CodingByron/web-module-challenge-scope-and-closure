@@ -183,7 +183,7 @@ function scoreboard(inningScoreCallBack, inningCallBack, inningNumbers) {
   }else {
     scoreByInnings.push(`Final Score: Away: ${awayScore} - Home: ${homeScore}`);
   }
-  return scoreByInnings;
+  return scoreByInnings; 
 }
 console.log(scoreboard(getInningScore, inning, 9));
 
