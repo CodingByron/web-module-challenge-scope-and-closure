@@ -30,11 +30,21 @@ console.log('example task:', processFirstItem(['foo','bar'],function(str){return
   Study the code for counter1 and counter2, then answer the questions below.
   
   1. What is the difference between counter1 and counter2?
+     The code for counter1 allows you to have multiple counters retaining their count value via the use of const and therefore can have multiple end values.
+     The code for counter2 can only track one value, regardless of how many counters are running.
   
   2. Which of the two uses a closure? How can you tell?
+      
+     The code for counter1 uses a closure, because the inner function has access to the outer function's scope.
   
   3. In what scenario would the counter1 code be preferable? In what scenario would 
-     counter2 be better?  
+     counter2 be better? 
+
+     counter1:
+     ex. Keeping track of individual scores of each basketball player.
+     counter2:
+     ex. Getting the total team score by counting the points from each basketball player into one result.
+
 */
 
 // counter1 code
@@ -94,7 +104,7 @@ function finalScore(inningCallBack, innings){
     Home: homeScore, Away: awayScore
   }
 }
-console.log(finalScore(inning, 10));
+console.log(finalScore(inning, 9));
 
 
 
@@ -111,11 +121,12 @@ For example: invoking getInningScore(inning) might return this object:
   */
 
 
-function getInningScore(/*Your Code Here */) {
-  /*Your Code Here */
-
+function getInningScore(inningCallBack) {
+  return{
+    Home: inningCallBack(), Away: inningCallBack()
+  }
 }
-
+console.log(inning);
 
 /* STRETCH: ⚾️⚾️⚾️ Task 5: scoreboard() ⚾️⚾️⚾️
 Use the scoreboard function below to do the following:
@@ -157,9 +168,24 @@ Use the scoreboard function below to do the following:
   "This game will require extra innings: Away 10 - Home 10"
 ] */
 // NOTE: There is no test associated with this code; if your output matches the given example, consider it complete!
-function scoreboard(/* CODE HERE */) {
-  /* CODE HERE */
+function scoreboard(inningScoreCallBack, inningCallBack, inningNumbers) {
+  const scoreByInnings = [];
+  let homeScore = 0;
+  let awayScore = 0;
+  for (let i = 0; i < inningNumbers; i++){
+    const currentInning = inningScoreCallBack(inningCallBack);
+    homeScore = homeScore + currentInning.Home
+    awayScore = awayScore + currentInning.Away
+    scoreByInnings.push(`Inning ${i + 1}: Away ${currentInning.Away} - Home ${currentInning.Home}`)
+  }
+  if(homeScore === awayScore){
+    scoreByInnings.push(`This game requires extra innings: Away ${currentInning.Away} - Home ${currentInning.Home}`);
+  }else {
+    scoreByInnings.push(`Final Score: Away: ${awayScore} - Home: ${homeScore}`);
+  }
+  return scoreByInnings;
 }
+console.log(scoreboard(getInningScore, inning, 9));
 
 
 
